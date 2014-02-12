@@ -8,7 +8,7 @@ our $VERSION = '0.01';
 sub new {
 	my ($class, %data) = @_;
 	my $self = bless \%data, $class;
-	$self->{path} // 'atom';
+	$self->{path} //= 'atom';
 	return $self;
 }
 
