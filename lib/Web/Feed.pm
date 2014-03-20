@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub new {
 	my ($class, %data) = @_;
@@ -117,8 +117,32 @@ sub rss {
 	return $xml;
 }
 
-
-
-
 1;
+
+=pod
+
+=head1 NAME
+
+Web::Feed - generate Atom and RSS feeds and sitemaps.xml files
+
+=head1 DESCRIPTION
+
+Experimental code.
+
+=head1 COPYRIGHT
+
+(c) 2014 Gabor Szabo
+
+=head1 LICENSE
+
+This program is free software; you can redistribute it and/or
+modify it under the same terms as Perl 5 itself.
+
+=cut
+
+# Copyright 2014 Gabor Szabo
+# LICENSE
+# This program is free software; you can redistribute it and/or
+# modify it under the same terms as Perl 5 itself.
+
 
