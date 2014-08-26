@@ -4,5 +4,6 @@ Makefile
 blib/
 pm_to_blib
 MANIFEST
+MANIFEST.bak
 *.swp
 *.gz
