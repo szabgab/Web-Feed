@@ -35,8 +35,14 @@ sub atom {
 		$xml .= qq{  <updated>$e->{updated}Z</updated>\n};
 
 		$xml .= qq{  <link rel="alternate" type="text/html" href="$e->{link}" />};
-		$xml .= qq{  <id>$e->{id}</id>\n};
-		$xml .= qq{  <content type="html">$e->{content}</content>\n};
+		my $id = $e->{id};
+		if (not $id) {
+			$id = $e->{link};
+			$id =~ s/\?.*//;
+		}
+		$xml .= qq{  <id>$id</id>\n};
+		my $content = $e->{content} // '';
+		$xml .= qq{  <content type="html">$content</content>\n};
 
 		if ($e->{author}) {
 			$xml .= qq{    <author>\n};
