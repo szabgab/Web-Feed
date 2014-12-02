@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 sub new {
 	my ($class, %data) = @_;
@@ -102,7 +102,7 @@ sub rss {
 
 
 		$xml .= qq{  <description type="html">$e->{summary}</description>\n};
-#		$xml .= qq{  <updated>$e->{updated}Z</updated>\n};
+#		$xml .= qq{  <updated>$e->{update}Z</updated>\n};
 		$xml .= qq{  <guid>$e->{link}</guid>\n};
 		$xml .= qq{  <link rel="alternate" type="text/html" href="$e->{link}" />};
 
