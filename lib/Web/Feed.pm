@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 sub new {
 	my ($class, %data) = @_;
@@ -96,13 +96,13 @@ sub rss {
 			$xml .= qq{    <itunes:summary>$e->{itunes}{summary}</itunes:summary>\n};
 #			$xml .= qq{    <itunes:image href="http://example.com/podcasts/everything/AllAboutEverything/Episode1.jpg" />\n};
 			$xml .= qq{    <enclosure url="$e->{enclosure}{url}" length="$e->{enclosure}{length}" type="$e->{enclosure}{type}" />};
-			$xml .= qq{    <pubDate>$e->{update} GMT</pubDate>\n};
+			$xml .= qq{    <pubDate>$e->{updated} GMT</pubDate>\n};
 			$xml .= qq{    <itunes:duration>e->{itunes}{duration}</itunes:duration>\n};
 		}
 
 
 		$xml .= qq{  <description type="html">$e->{summary}</description>\n};
-#		$xml .= qq{  <updated>$e->{update}Z</updated>\n};
+#		$xml .= qq{  <updated>$e->{updated}Z</updated>\n};
 		$xml .= qq{  <guid>$e->{link}</guid>\n};
 		$xml .= qq{  <link rel="alternate" type="text/html" href="$e->{link}" />};
 
