@@ -17,6 +17,7 @@ WriteMakefile(
 		'DateTime::Tiny'       => 0,
 		'Time::Local'          => 0,
 		'Test::More'           => 0,
+		'POSIX'                => 0,
 	},
 	dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
 	(eval { ExtUtils::MakeMaker->VERSION(6.46) } ? (META_MERGE => {

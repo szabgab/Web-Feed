@@ -4,8 +4,9 @@ use warnings;
 use 5.010;
 use DateTime::Tiny;
 use Time::Local qw(timegm);
+use POSIX ();
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 sub new {
 	my ($class, %data) = @_;
@@ -63,7 +64,7 @@ sub atom {
 sub _pubDate {
 	my ($date) = @_;
 	my $dt = DateTime::Tiny->from_string( "$date" ); # forced stringification
-	my $pubDate = gmtime timegm( $dt->second, $dt->minute, $dt->hour, $dt->day, $dt->month-1, $dt->year );
+	my $pubDate = POSIX::strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime timegm( $dt->second, $dt->minute, $dt->hour, $dt->day, $dt->month-1, $dt->year ));
 	return $pubDate;
 }
 
@@ -82,7 +83,7 @@ sub rss {
 	$xml .= qq{<channel>\n};
 	$xml .= qq{  <title>$self->{title}</title>\n};
 	$xml .= qq{  <link>$url/</link>\n};
-	$xml .= qq{  <pubDate>$pubDate GMT</pubDate>\n};
+	$xml .= qq{  <pubDate>$pubDate</pubDate>\n};
 	$xml .= qq{  <description>$self->{description}</description>\n};
 	$xml .= qq{  <language>$self->{language}</language>\n};
 	$xml .= qq{  <copyright>$self->{copyright}</copyright>\n};
@@ -124,7 +125,7 @@ sub rss {
 
 		if ($e->{itunes}) {
 			my $pubDate = _pubDate($e->{updated});
-			$xml .= qq{    <pubDate>$pubDate GMT</pubDate>\n};
+			$xml .= qq{    <pubDate>$pubDate</pubDate>\n};
 			$xml .= qq{    <itunes:author>$e->{itunes}{author}</itunes:author>\n};
 #			$xml .= qq{    <itunes:subtitle></itunes:subtitle>\n};
 			$xml .= qq{    <itunes:summary>$e->{itunes}{summary}</itunes:summary>\n};
