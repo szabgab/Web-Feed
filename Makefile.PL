@@ -14,6 +14,8 @@ WriteMakefile(
 		: ()),
 	PL_FILES            => {},
 	PREREQ_PM => {
+		'DateTime::Tiny'       => 0,
+		'Time::Local'          => 0,
 		'Test::More'           => 0,
 	},
 	dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
