@@ -1,3 +1,7 @@
+0.08
+    - pubDate format is now "Wed, 03 Nov 2015 19:18:00 GMT"
+      https://github.com/szabgab/code-maven.com/issues/39
+
 0.07 2016.08.23
     - Add several new fields
 

@@ -2,6 +2,8 @@ package Web::Feed;
 use strict;
 use warnings;
 use 5.010;
+use DateTime::Tiny;
+use Time::Local qw(timegm);
 
 our $VERSION = '0.07';
 
@@ -58,11 +60,20 @@ sub atom {
 	return $xml;
 }
 
+sub _pubDate {
+	my ($date) = @_;
+	my $dt = DateTime::Tiny->from_string( "$date" ); # forced stringification
+	my $pubDate = gmtime timegm( $dt->second, $dt->minute, $dt->hour, $dt->day, $dt->month-1, $dt->year );
+	return $pubDate;
+}
+
+
 sub rss {
 	my ($self) = @_;
 
 	my $url = $self->{url};
 	$url =~ s{/*$}{};
+	my $pubDate = _pubDate($self->{updated}); 
 
 	# itunes specs: http://www.apple.com/itunes/podcasts/specs.html
 	my $xml = '';
@@ -71,7 +82,7 @@ sub rss {
 	$xml .= qq{<channel>\n};
 	$xml .= qq{  <title>$self->{title}</title>\n};
 	$xml .= qq{  <link>$url/</link>\n};
-	$xml .= qq{  <pubDate>$self->{updated} GMT</pubDate>\n};
+	$xml .= qq{  <pubDate>$pubDate GMT</pubDate>\n};
 	$xml .= qq{  <description>$self->{description}</description>\n};
 	$xml .= qq{  <language>$self->{language}</language>\n};
 	$xml .= qq{  <copyright>$self->{copyright}</copyright>\n};
@@ -98,7 +109,6 @@ sub rss {
 		$xml .= qq{    <title>$e->{title}</title>\n};
 		$xml .= qq{    <link rel="alternate" type="text/html" href="$e->{link}" />\n};
 		$xml .= qq{    <guid>$e->{link}</guid>\n};
-
 		$xml .= qq{    <description type="html">$e->{summary}</description>\n};
 #		$xml .= qq{    <updated>$e->{updated}Z</updated>\n};
 
@@ -113,7 +123,8 @@ sub rss {
 		}
 
 		if ($e->{itunes}) {
-			$xml .= qq{    <pubDate>$e->{updated} GMT</pubDate>\n};
+			my $pubDate = _pubDate($e->{updated});
+			$xml .= qq{    <pubDate>$pubDate GMT</pubDate>\n};
 			$xml .= qq{    <itunes:author>$e->{itunes}{author}</itunes:author>\n};
 #			$xml .= qq{    <itunes:subtitle></itunes:subtitle>\n};
 			$xml .= qq{    <itunes:summary>$e->{itunes}{summary}</itunes:summary>\n};
