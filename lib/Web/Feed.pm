@@ -6,7 +6,7 @@ use DateTime::Tiny;
 use Time::Local qw(timegm);
 use POSIX ();
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 sub new {
 	my ($class, %data) = @_;
@@ -108,9 +108,9 @@ sub rss {
 	foreach my $e (@{ $self->{entries} }) {
 		$xml .= qq{  <item>\n};
 		$xml .= qq{    <title>$e->{title}</title>\n};
-		$xml .= qq{    <link rel="alternate" type="text/html" href="$e->{link}" />\n};
+		$xml .= qq{    <link>$e->{link}</link>\n};
 		$xml .= qq{    <guid>$e->{link}</guid>\n};
-		$xml .= qq{    <description type="html">$e->{summary}</description>\n};
+		$xml .= qq{    <description>$e->{summary}</description>\n};
 #		$xml .= qq{    <updated>$e->{updated}Z</updated>\n};
 
 #		$xml .= qq{    <id>$e->{id}</id>\n};
