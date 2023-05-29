@@ -61,3 +61,5 @@ SETUP.bat
 # need to include the share directory as well as apparently
 # Module::Install is only installing stuff listed in the MANIFEST file.
 # \bshare\b
+
+.github/*
